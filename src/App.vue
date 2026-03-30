@@ -6,15 +6,18 @@
     </header>
     <main>
       <AddBookForm @add-book="addBook" />
+
       <BookFilters
           v-model:searchQuery="searchQuery"
           v-model:filter="currentFilter"
           :books="books"
       />
+
       <div v-if="filteredBooks.length === 0" class="empty-state">
-        <p>Книги не найдены :(</p>
+        <p>Книги не найдены :( </p>
         <p>Добавьте первую книгу или измените параметры поиска</p>
       </div>
+
       <div v-else class="books-list">
         <BookCard
             v-for="book in filteredBooks"
@@ -28,6 +31,7 @@
     </main>
   </div>
 </template>
+
 <script setup>
 import { ref, computed, watch } from 'vue'
 import AddBookForm from './components/AddBookForm.vue'
@@ -37,6 +41,7 @@ import BookCard from './components/BookCard.vue'
 const books = ref([])
 // Загрузка сохраненных книг
 const savedBooks = localStorage.getItem('books')
+
 if (savedBooks) {
   books.value = JSON.parse(savedBooks)
 }
@@ -91,11 +96,11 @@ const filteredBooks = computed(() => {
       .filter(book => {
         if (!searchQuery.value) return true
         const query = searchQuery.value.toLowerCase()
-        return book.title.toLowerCase().includes(query) ||
-            book.author.toLowerCase().includes(query)
+        return book.title.toLowerCase().includes(query) || book.author.toLowerCase().includes(query)
       })
 })
 </script>
+
 <style>
 * {
   margin: 0;

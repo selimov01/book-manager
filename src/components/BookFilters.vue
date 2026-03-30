@@ -7,6 +7,7 @@
           placeholder="Поиск по названию или автору..."
       />
     </div>
+
     <div class="filter-buttons">
       <button
           v-for="option in filterOptions"
@@ -17,26 +18,34 @@
         {{ option.label }}
       </button>
     </div>
+
     <div class="stats">
       <p>Всего: {{ total }} | Прочитано: {{ completed }} | Осталось: {{ total -
       completed }}</p>
     </div>
   </div>
 </template>
+
 <script setup>
+
 import { computed } from 'vue'
 const props = defineProps(['filter', 'books'])
 defineEmits(['update:filter'])
 const searchQuery = defineModel('searchQuery')
+
 const filterOptions = [
   { value: 'all', label: 'Все' },
   { value: 'unread', label: 'Непрочитанные' },
   { value: 'read', label: 'Прочитанные' }
 ]
+
 const total = computed(() => props.books.length)
 const completed = computed(() => props.books.filter(b => b.completed).length)
+
 </script>
+
 <style scoped>
+
 .filters {
   background: white;
   padding: 20px;
@@ -62,13 +71,13 @@ const completed = computed(() => props.books.filter(b => b.completed).length)
 .filter-btn {
   padding: 8px 16px;
   border: 1px solid #ddd;
-  background: white;
+  background: black;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s;
 }
 .filter-btn:hover {
-  background: #f0f0f0;
+  background: #423f3f;
 }
 .filter-btn.active {
   background: #4CAF50;
